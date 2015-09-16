@@ -1,0 +1,5 @@
+7/28/2015
+
+- Installed jenkins job builder
+- Figured out how to configure the jenkins .yaml and a jenkins.ini, still in the process of completing it
+- Able to push jobs or updates from .yaml file to jenkins

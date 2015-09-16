@@ -1,0 +1,158 @@
+# Shell Scripts
+- builder:
+    name: prod-cleanup-pull-build
+    builders:
+        - shell: "#/bin/bash
+                \nwhoami
+                \npwd
+                \nssh -tt -i /home/ec2-user/ChatOps.pem ec2-user@$EC2_BOX 'stty raw -echo; cd /home/ec2-user/labelcraft/bin/; sudo bash /home/ec2-user/labelcraft/bin/cleanup.sh'
+                \nssh -tt -i /home/ec2-user/ChatOps.pem ec2-user@$EC2_BOX 'stty raw -echo; cd /home/ec2-user/labelcraft/; git pull'
+                \nssh -tt -i /home/ec2-user/ChatOps.pem ec2-user@$EC2_BOX 'stty raw -echo; cd /home/ec2-user/labelcraft/bin/; sudo bash /home/ec2-user/labelcraft/bin/build.sh'"
+
+- builder:
+    name: dev-cleanup-pull-build
+    builders:
+        - shell: "#/bin/bash
+                \ntime ssh -tt -i /home/ec2-user/ChatOps.pem ec2-user@$EC2_BOX_DEV 'stty raw -echo; cd /home/ec2-user/labelcraft/bin/; sudo bash /home/ec2-user/labelcraft/bin/cleanup.sh'
+                \nssh -tt -i /home/ec2-user/ChatOps.pem ec2-user@$EC2_BOX_DEV 'stty raw -echo; cd /home/ec2-user/labelcraft/; git pull'
+                \ntime ssh -tt -i /home/ec2-user/ChatOps.pem ec2-user@$EC2_BOX_DEV 'stty raw -echo; cd /home/ec2-user/labelcraft/bin/; sudo bash /home/ec2-user/labelcraft/bin/build.sh'"
+
+- builder:
+    name: dev-selenium
+    builders:
+        - shell: "whoami
+                \npwd
+                \nssh -tt -i /home/ec2-user/ChatOps.pem ec2-user@$EC2_SEL 'stty raw -echo; cd /home/ec2-user/selenium_tests/webdriver; pwd; git pull'
+                \nssh -tt -i /home/ec2-user/ChatOps.pem ec2-user@$EC2_SEL 'stty raw -echo; cd /home/ec2-user/selenium_tests/webdriver/labelcraft; pkill Xvfb; Xvfb :1 -screen 0 1280x768x24 & export DISPLAY=:1; sleep 10; mvn clean verify; pkill Xvfb'"
+
+
+- builder:
+    name: dev-selenium-report
+    builders:
+        - shell: "rm -rf target
+\nscp -i /home/ec2-user/ChatOps.pem -r ec2-user@ec2-52-2-25-224.compute-1.amazonaws.com:/home/ec2-user/selenium_tests/webdriver/labelcraft/target/ ./target
+\ncurl -X POST --data-urlencode 'payload={\"channel\": \"#github\", \"username\": \"webhookbot\", \"text\": \"Test '${BUILD_NUMBER}' results available at: http://52.2.9.51:8080/job/labelcraft_dev_docker/'${BUILD_NUMBER}'/artifact/target/site/serenity/index.html\", \"icon_emoji\": \":ghost:\"}' https://hooks.slack.com/services/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"
+
+
+
+   
+
+# // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+- job-template:
+    name: 'chingyg_test_{job}'
+
+
+- project: 
+    name: chingyg_test
+    jobs:
+    - chingyg_test_dev
+    - chingyg_test_prod
+
+# // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Development Job        
+- job:
+    name: chingyg_test_dev
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: false
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    logrotate:
+        numToKeep: 15
+        artifactDaysToKeep: -1
+        artifactNumToKeep: -1
+
+    # Github Project
+    properties:
+        - github:
+            url: https://github.com/GridIron/labelcraft/
+
+    # Text Parameters    
+    parameters:
+    - text:
+        name: EC2_BOX_DEV
+        default: 52.2.216.199
+    - text:
+        name: EC2_SEL
+        default: 52.2.25.224
+
+    # Source Code Management (github)
+    scm:
+    - git:
+        name: git-dev-repo
+        credentials-id: "423c4755-341f-41d9-8b86-b145ce1a4aab"
+        url: https://github.com/GridIron/labelcraft/
+        branches:
+            - '*/development'
+        wipe-workspace: false
+        skip-tag: true
+
+    # Build Triggers
+    triggers:
+        - github
+
+    # Post Build Actions
+    publishers:
+    - archive:
+        artifacts: '**/target/site/serenity/**/*.*'
+    - groovy-postbuild:
+        script: "if(manager.logContains(\".*Reports view generated.*\")){
+    \n    manager.addBadge(\"___.gif\",\"View Report\", manager.getEnvVariable(\"BUILD_URL\")+\"artifact/target/site/serenity/index.html\")
+    \n    manager.addBadge(\"save.gif\",\"Download Report\", manager.getEnvVariable(\"BUILD_URL\")+\"artifact/target/*zip*/archive.zip\")
+\n}"
+
+    # Scripts
+    builders:
+      - dev-cleanup-pull-build
+      - dev-selenium
+      - dev-selenium-report
+# // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Productions Job
+- job:
+    name: chingyg_test_prod
+
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: false
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+
+    # Github Project
+    properties:
+        - github:
+            url: https://github.com/GridIron/labelcraft/
+
+    # Text Parameters    
+    parameters:
+    - text:
+        name: EC2_BOX
+        default: 52.7.182.79
+
+    # Source Code Management (github)
+    scm:
+    - git:
+        name: git-master-repo
+        credentials-id: "423c4755-341f-41d9-8b86-b145ce1a4aab"
+        url: https://github.com/GridIron/labelcraft/
+        branches:
+            - '*/master'        
+        wipe-workspace: false
+        skip-tag: true
+
+    # Build Triggers
+    triggers:
+        - github       
+
+    # Scripts        
+    builders:
+        - prod-cleanup-pull-build     
+    

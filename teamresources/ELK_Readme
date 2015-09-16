@@ -1,0 +1,78 @@
+## Elk with Docker
+# Setting up and getting the most out of an ELK stack.
+
+# Goals
+- ELK is an acronym which stands for Elasticsearch, Logstash and Kibana. 
+- These three services function as a pipeline designed to maintain long-term logs as well as to provide a way to present this data in a useful and understandable way. 
+- Logstash is the first step and acts as a forwarding agent to gather log files from their host servers and to forward these logs to Elasticsearch. 
+- Elasticsearch is an indexing and searching program which can be used to navigate and query the logs gathered by Logstash. 
+- Finally, Kibana acts as a tool to visualize the log data. 
+- One simple use case I've seen for Kibana is to allow a network administrator to look back at a year's worth of logs and pinpoint increases in network activity to discover who or what is causing these spikes to occur.
+
+# Prerequisites [assuming basic knowledge of Docker]
+- In my demo environment, I established 2 Elasticsearch instances, 1 Logstash instance and 1 Kibana instance. I hooked a load balancer up to the 2 Elasticsearch instances which allowed Logstash and Kibana to communicate with both of these ES servers very easily.
+
+# Steps
+- As of now, this has not been implemented with Docker. The installation process is very straightforward and should be easy enough to implement using Docker containers.
+- Installing Elasticsearch
+- Commands
+
+sudo su
+
+yum update -y
+
+cd /root
+
+wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.7.1.noarch.rpm
+
+yum install elasticsearch-1.7.1.noarch.rpm -y
+
+rm -f elasticsearch-1.7.1.noarch.rpm
+
+cd /usr/share/elasticsearch/
+
+./bin/plugin -install mobz/elasticsearch-head
+
+./bin/plugin -install lukas-vlcek/bigdesk
+
+./bin/plugin install elasticsearch/elasticsearch-cloud-aws/2.7.0
+
+bin/plugin -i elasticsearch/marvel/latest
+
+cd /etc/elasticsearch
+
+nano elasticsearch.yml
+
+Config
+
+Make sure to leave it as localhost (this way it can be contacted by publicip:9200)
+
+cluster.name: voit_elastic
+
+cloud.aws.access_key: YOUR_AWS_ACCESS_KEY_HERE
+
+cloud.aws.secret_key: YOUR_AWS_SECRET_KEY_HERE
+
+cloud.aws.region: us-east-1
+
+discovery.type: ec2
+
+discovery.ec2.tag.Name: "ChatOps_ELK_ElasticSearch_test"
+
+http.cors.enabled: true
+
+http.cors.allow-origin: "*"
+
+Commands
+
+service elasticsearch start
+
+Assuming I have Docker containers on machine X, Y, Z...here's some instructions for hooking the ELK logging stack up to them.
+
+# Tips / Advice
+- 
+
+# Now that you have your ELK stack...
+- From here, scaling occurs in two ways. First, you'll want to start incorporating more logs into your system. In order to do this, you'll need to install Log Forwarder (Previously known as Lumberjack) onto any server (or container) that you want to collect logs from.
+- I haven't yet succeeded in implementing this myself as I was wary of installing it on our micro ec2 servers since Log Forwarder is apparently a resource-intensive service.
+
