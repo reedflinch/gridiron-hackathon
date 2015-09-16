@@ -1,6 +1,2 @@
-
-
 # labelcraft ( hackathon edition )
-
-
 
