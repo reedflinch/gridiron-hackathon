@@ -39,7 +39,7 @@ move to the www directory (your-repo-name/www)
 	% sudo apt-get -y install ruby2.2 ruby2.2-dev bundler javascript-common
 
 	% sudo gem install compass
-	& sudo ln -s /usr/bin/nodejs /usr/bin/node
+	% sudo ln -s /usr/bin/nodejs /usr/bin/node
 	% bower install --allow-root
 	% sudo npm install
 	% grunt dev
@@ -65,10 +65,10 @@ move to the api directory (your-repo-name/api)
 	% sudo chown -R ubuntu:ubuntu /var/lib/gems 
 	% sudo apt-get update
 	% sudo apt-get install libpq-dev
-
 	% sudo gem install bundler
 
-**May need to change line 3 of Gemfile from 2.2.2 to 2.2.3**
+**May need to change line 3 of Gemfile from 2.2.2 to 2.2.3**  
+	
 	% bundle install
 
 ##### Run  
