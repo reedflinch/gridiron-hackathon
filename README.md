@@ -50,6 +50,8 @@ grunt dev
 
 
 ###Build api
+move to the api directory (your-repo-name/api)
+
 sudo apt-get update -y && \
   sudo apt-get install -y \
   nodejs \
