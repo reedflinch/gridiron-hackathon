@@ -41,7 +41,7 @@ Move to the www directory `your-repo-name/www` and run the following
 	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 	curl -sSL -k https://get.rvm.io | bash -s stable --rails
 	
-	source /home/<username>/.rvm/scripts/rvm (command outputted from the previous command)
+	source /home/$USER/.rvm/scripts/rvm (command outputted from the previous command)
 ```
 	
 - Install ruby 2.2.2  
