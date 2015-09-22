@@ -64,6 +64,11 @@ Move to the www directory `your-repo-name/www` and run the following
 
 
 - Install and set up bower, grunt, dependencies, compass
+	- If you are having trouble with git when installing dependencies (firewall issue), you can make git replace the protocol for you
+```
+	git config --global url."https://".insteadOf git://
+```
+
 ```
 	sudo apt-get install ruby-dev
 	sudo ln -s /usr/bin/nodejs /usr/bin/node
@@ -78,10 +83,7 @@ Move to the www directory `your-repo-name/www` and run the following
 	sudo npm install -g grunt-cli
 	gem install compass
 ```
-- If you are having trouble with git when installing dependencies (firewall issue), you can make git replace the protocol for you
-```
-	git config --global url."https://".insteadOf git://
-```
+
 	
 ### Run the front-end  
 - Run this from the www directory
