@@ -23,56 +23,93 @@ Now you can make a clone of your new repo
 ### Build the Front End
 move to the www directory (your-repo-name/www)
 
-	% sudo apt-get update && sudo apt-get install -y git npm nodejs
-	% sudo apt-get install -y build-essential chrpath git-core libssl-dev libfontconfig1-dev
+
+	% sudo apt-get update && sudo apt-get install -y npm nodejs
+
+	% gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+
+Install rvm
+	% \curl -sSL -k https://get.rvm.io | bash -s stable --rails
+
+	
+Install ruby 2.2.2
+	% rvm install ruby-2.2.2
+
+Check ruby version
+	% ruby -v
+If anything other than 2.2.2 use
+	% rvm use 2.2.2
+If getting rvm is not a funtion error, follow the instructions [here][rvm]
+
+
+	% sudo apt-get install ruby-dev
+	% sudo ln -s /usr/bin/nodejs /usr/bin/node
+
+	Make git replace the protocol for you (Fixes firewall issue)
+	% git config --global url."https://".insteadOf git://
 
 	% sudo npm install -g bower
-	% sudo npm install -g grunt-cli
 	% sudo npm install -g grunt
 
+	% bower install
+	% bower install grunt-cli
 
-##### add brightbox's repo, for ruby2.2
-	% sudo apt-add-repository ppa:brightbox/ruby-ng
-	% sudo apt-get -y update
-
-##### install ruby2.2
-	% sudo apt-get -y install ruby2.2 ruby2.2-dev bundler javascript-common
-
-	% sudo gem install compass
-	% sudo ln -s /usr/bin/nodejs /usr/bin/node
-	% bower install --allow-root
 	% sudo npm install
-	% grunt dev
-
-###Build Database GOOOOEEEESSSS HHHHHEEEEEERRRRR
-
-
-
-
-###Build api
-move to the api directory (your-repo-name/api)
-
-	% sudo apt-get update -y && \
-  	sudo apt-get install -y \
-  	nodejs \
-  	mysql-client \
-  	postgresql-client \
-  	sqlite3 \
-  	--no-install-recommends && sudo rm -rf /var/lib/apt/lists/* 
-
-
-	% sudo chown -R ubuntu:ubuntu /usr/local/bin
-	% sudo chown -R ubuntu:ubuntu /var/lib/gems 
-	% sudo apt-get update
-	% sudo apt-get install libpq-dev
-	% sudo gem install bundler
-
-**May need to change line 3 of Gemfile from 2.2.2 to 2.2.3**  
+	% sudo npm install -g grunt-cli
+	% gem install compass
 	
-	% bundle install
+serve front-end
+	% grunt serve		
 
-##### Run  
-/bin/bash startup.sh
+
+###Build Database
+Go to the 
+	% sudo apt-get update -y && \
+  	sudo apt-get install -y postgresql postgresql-contrib
+
+Add to /api/config/databade.yml 
+  development: &default
+  adapter: postgresql
+  database: ads_development
+  encoding: utf8
+  host: localhost
+  min_messages: warning
+  pool: 2
+  timeout: 5000
+  username: postgres 						*add this line
+  password:									*add this line
+
+Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom of file)
+
+	# Database administrative login by Unix domain socket
+	local   all             postgres                                peer
+
+	# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+	# "local" is for Unix domain socket connections only
+	local   all             all                                     trust
+	# IPv4 local connections:
+	host    all             all             127.0.0.1/32            trust
+	# IPv6 local connections:
+	host    all             all             ::1/128                 trust
+
+Then go into the psql terminal as postgres user
+	% sudo -u postgres psql
+Then type the following command to refresh
+	% select pg_reload_conf();
+	% \q
+
+Now move to the api directory (your-repo-name/api)
+Then create and migrate the database
+	% sudo apt-get install rake
+	% sudo gem install bundler
+	% gem install rails 
+	% sudo apt-get install libpq-dev
+	% bundle install
+  	% rake db:create
+  	% rake db:migrate
+	% rails s
+
 
 [git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-
+[rvm]: https://rvm.io/integration/gnome-terminal
