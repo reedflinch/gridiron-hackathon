@@ -5,17 +5,21 @@
 You will need [Git][git] to make a duplicate of this repository. 
 
 Make a bare clone of the repository  
+	
 	% git clone --bare https://github.com/GridIron/hackathon.git
 
 Mirror-push to your new repository  
+	
 	% cd hackathon.git  
 	% git push --mirror https://github.com/your-username/your-new-repo.git
 
 Remove our temporary local repository  
+	
 	% cd ..  
 	% rm -rf hackathon.git 
 
 Now you can make a clone of your new repo  
+	
 	% git clone https://github.com/your-username/your-new-repo.git 
 
 
