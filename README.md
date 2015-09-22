@@ -74,7 +74,7 @@ Serve front-end
 
 		**If running ubuntu on EC2, a change will need to be made in the Gruntfile. On line 84 change 'localhost' to '0.0.0.0', keeping the quotes**
 
-###Build Database
+###Build Database and API
 
 	% sudo apt-get update -y && \
   	sudo apt-get install -y postgresql postgresql-contrib
