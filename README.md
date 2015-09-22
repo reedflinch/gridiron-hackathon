@@ -1,73 +1,86 @@
-# labelcraft ( Hackathon edition )
+# Labelcraft ( Hackathon edition )
+- Tested on Ubuntu locally and Amazon EC2
 
-### Duplicating Repo  
-
+## Duplicating Repo  
 You will need [Git][git] to make a duplicate of this repository. 
 
-Make a bare clone of the repository  
-	
-	% git clone --bare https://github.com/GridIron/hackathon.git
 
-Mirror-push to your new repository  
-	
-	% cd hackathon.git  
-	% git push --mirror https://github.com/your-username/your-new-repo.git
+- Make a bare clone of the repository  
+```	
+	git clone --bare https://github.com/GridIron/hackathon.git
+```
+- Mirror-push to your new repository  
+```	
+	cd hackathon.git  
+	git push --mirror https://github.com/your-username/your-new-repo.git
+```
+-Remove our temporary local repository  
+```	
+	cd ..  
+	rm -rf hackathon.git 
+```
+- Now you can make a clone of your new repo  
+```
+	git clone https://github.com/your-username/your-new-repo.git 
+```
 
-Remove our temporary local repository  
-	
-	% cd ..  
-	% rm -rf hackathon.git 
 
-Now you can make a clone of your new repo  
-	
-	% git clone https://github.com/your-username/your-new-repo.git 
+## Building the Front End
+Move to the 'www' directory `your-repo-name/www` and run the following
 
-
-
-### Build the Front End
-move to the www directory (your-repo-name/www) and run the following commands
-
+- Install nodeJS and npm
+```
 	% sudo apt-get update && sudo apt-get install -y npm nodejs
+```
 
-	% gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-
-Install rvm  (need to be on GuestWifi and restart VM)
-
-	% \curl -sSL -k https://get.rvm.io | bash -s stable --rails
-	% source /home/<username>/.rvm/scripts/rvm (command outputted from the previous command)
-
+- Install rvm 
+	- You may need to switch to GuestWifi to get the key
+	- If you are using a VM, you will need to restart your VM after changing wifi
+```
+	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+	curl -sSL -k https://get.rvm.io | bash -s stable --rails
 	
-Install ruby 2.2.2  
+	source /home/<username>/.rvm/scripts/rvm (command outputted from the previous command)
+```
+	
+- Install ruby 2.2.2  
+```
+	rvm install ruby-2.2.2
+```
 
-	% rvm install ruby-2.2.2
+- Check ruby version, and ensure version 2.2.2 is in use
+```
+	ruby -v
+```
 
-Check ruby version  
+- If anything other than 2.2.2 use, you can change it by running
+```
+	rvm use 2.2.2
+```		
 
-	% ruby -v
 
-If anything other than 2.2.2 use  
+- If getting the `rvm is not a funtion error`, follow the instructions [here][rvm]
 
-	% rvm use 2.2.2
-		
-* If getting rvm is not a funtion error, follow the instructions [here][rvm]
 
-Continue running the following commands
+- Install and set up bower, grunt, dependencies, compass
+```
+	sudo apt-get install ruby-dev
+	sudo ln -s /usr/bin/nodejs /usr/bin/node
 
-	% sudo apt-get install ruby-dev
-	% sudo ln -s /usr/bin/nodejs /usr/bin/node
+	sudo npm install -g bower
+	sudo npm install -g grunt
 
-	Make git replace the protocol for you (Fixes firewall issue)
-	% git config --global url."https://".insteadOf git://
-
-	% sudo npm install -g bower
-	% sudo npm install -g grunt
-
-	% bower install
-	% bower install grunt-cli
-
-	% sudo npm install
-	% sudo npm install -g grunt-cli
-	% gem install compass
+	bower install
+	bower install grunt-cli
+	
+	sudo npm install
+	sudo npm install -g grunt-cli
+	gem install compass
+```
+- If you are having trouble with git when installing dependencies (firewall issue), you can make git replace the protocol for you
+```
+	git config --global url."https://".insteadOf git://
+```
 	
 Serve front-end  
 
