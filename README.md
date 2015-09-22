@@ -9,7 +9,8 @@ You will need [Git][git] to make a duplicate of this repository.
 ```	
 	git clone --bare https://github.com/GridIron/hackathon.git
 ```
-- Push to your new repository  (Must create repo on github first)
+- Push to your new repository  
+	- Must create repo on github first
 ```	
 	cd hackathon.git  
 	git push --mirror https://github.com/your-username/your-new-repo.git
@@ -30,7 +31,7 @@ Move to the www directory `your-repo-name/www` and run the following
 
 - Install nodeJS and npm
 ```
-	% sudo apt-get update && sudo apt-get install -y npm nodejs
+	sudo apt-get update && sudo apt-get install -y npm nodejs
 ```
 
 - Install rvm 
@@ -89,13 +90,13 @@ Move to the www directory `your-repo-name/www` and run the following
 	grunt serve	
 ```
 
-If grunt serve is not working (not hanging) and recieve errors do the following
-
+- If grunt serve is not working (not hanging), and you recieve errors try the following
+```
 	sudo rm -rf node_modules
 	sudo npm install
 	sudo gem install compass
 	grunt serve
-
+```
 
 ### Build Database and API
 ```
