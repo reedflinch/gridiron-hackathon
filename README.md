@@ -21,26 +21,32 @@ Now you can make a clone of your new repo
 
 
 ### Build the Front End
-move to the www directory (your-repo-name/www)
-
+move to the www directory (your-repo-name/www) and run the following commands
 
 	% sudo apt-get update && sudo apt-get install -y npm nodejs
 
 	% gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 
-Install rvm
+Install rvm  
+
 	% \curl -sSL -k https://get.rvm.io | bash -s stable --rails
 
 	
-Install ruby 2.2.2
+Install ruby 2.2.2  
+
 	% rvm install ruby-2.2.2
 
-Check ruby version
+Check ruby version  
+
 	% ruby -v
-If anything other than 2.2.2 use
+
+If anything other than 2.2.2 use  
+
 	% rvm use 2.2.2
+
 If getting rvm is not a funtion error, follow the instructions [here][rvm]
 
+Continue running the following commands
 
 	% sudo apt-get install ruby-dev
 	% sudo ln -s /usr/bin/nodejs /usr/bin/node
@@ -58,28 +64,31 @@ If getting rvm is not a funtion error, follow the instructions [here][rvm]
 	% sudo npm install -g grunt-cli
 	% gem install compass
 	
-serve front-end
-	% grunt serve		
-		-If running ubuntu on EC2, a change will need to be made in the Gruntfile. On line 84 change 'localhost' to '0.0.0.0', keeping the quotes
+serve front-end  
+
+	% grunt serve	
+
+		**If running ubuntu on EC2, a change will need to be made in the Gruntfile. On line 84 change 'localhost' to '0.0.0.0', keeping the quotes**
 
 ###Build Database
-Go to the 
+
 	% sudo apt-get update -y && \
   	sudo apt-get install -y postgresql postgresql-contrib
 
-Add to /api/config/databade.yml 
-  development: &default
-  adapter: postgresql
-  database: ads_development
-  encoding: utf8
-  host: localhost
-  min_messages: warning
-  pool: 2
-  timeout: 5000
-  username: postgres 						*add this line
-  password:									*add this line
+Add to /api/config/databade.yml  
 
-Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom of file)
+  development: &default  
+  adapter: postgresql  
+  database: ads_development  
+  encoding: utf8  
+  host: localhost  
+  min_messages: warning  
+  pool: 2  
+  timeout: 5000  
+  username: postgres 						*add this line  
+  password:									*add this line  
+
+Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom of file)  
 
 	# Database administrative login by Unix domain socket
 	local   all             postgres                                peer
@@ -93,22 +102,30 @@ Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom o
 	# IPv6 local connections:
 	host    all             all             ::1/128                 trust
 
-Then go into the psql terminal as postgres user
+Then go into the psql terminal as postgres user  
+
 	% sudo -u postgres psql
-Then type the following command to refresh
+
+Then type the following command to refresh  
+
 	% select pg_reload_conf();
 	% \q
 
-Now move to the api directory (your-repo-name/api)
-Then create and migrate the database
+Now move to the api directory (your-repo-name/api) and run the following commands  
+
 	% sudo apt-get install rake
 	% sudo gem install bundler
 	% gem install rails 
 	% sudo apt-get install libpq-dev
 	% bundle install
+
+Then create and migrate the database  
   	% rake db:create
   	% rake db:migrate
+
+ Run the api  
 	% rails s
+		
 		-If running ubuntu on EC2, use  `rails s -b 0.0.0.0 -p 3000`
 
 [git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
