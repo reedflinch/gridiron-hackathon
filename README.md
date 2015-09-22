@@ -34,6 +34,7 @@ move to the www directory (your-repo-name/www) and run the following commands
 Install rvm  (need to be on GuestWifi and restart VM)
 
 	% \curl -sSL -k https://get.rvm.io | bash -s stable --rails
+	% source /home/<username>/.rvm/scripts/rvm (command outputted from the previous command)
 
 	
 Install ruby 2.2.2  
