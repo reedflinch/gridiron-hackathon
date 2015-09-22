@@ -82,19 +82,22 @@ Move to the 'www' directory `your-repo-name/www` and run the following
 	git config --global url."https://".insteadOf git://
 ```
 	
-Serve front-end  
+### Run the front-end  
+- Run this from the 'www' directory
+	- If running ubuntu on EC2, a change will need to be made in the Gruntfile. On line 84 change 'localhost' to '0.0.0.0', keeping the quotes
+```
+	grunt serve	
+```
 
-	% grunt serve	
 
-		**If running ubuntu on EC2, a change will need to be made in the Gruntfile. On line 84 change 'localhost' to '0.0.0.0', keeping the quotes**
-
-###Build Database and API
-
-	% sudo apt-get update -y && \
+### Build Database and API
+```
+	sudo apt-get update -y && \
   	sudo apt-get install -y postgresql postgresql-contrib
+```
 
-Add to /api/config/databade.yml  
-
+- Modify the `database.yml` file located at `your-repo-name/api/config/database.yml` 
+```
   	development: &default  
   	adapter: postgresql  
   	database: ads_development  
@@ -103,9 +106,9 @@ Add to /api/config/databade.yml
   	min_messages: warning  
   	pool: 2  
   	timeout: 5000  
-  	username: postgres 						*add this line  
+  	username: postgres						*add this line  
   	password:								*add this line  
-
+```
 Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom of file) 
 
 **MUST USE SUDO to view contents of this file**
