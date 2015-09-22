@@ -9,12 +9,12 @@ You will need [Git][git] to make a duplicate of this repository.
 ```	
 	git clone --bare https://github.com/GridIron/hackathon.git
 ```
-- Mirror-push to your new repository  
+- Push to your new repository  
 ```	
 	cd hackathon.git  
 	git push --mirror https://github.com/your-username/your-new-repo.git
 ```
--Remove our temporary local repository  
+- Remove our temporary local repository  
 ```	
 	cd ..  
 	rm -rf hackathon.git 
@@ -26,7 +26,7 @@ You will need [Git][git] to make a duplicate of this repository.
 
 
 ## Building the Front End
-Move to the 'www' directory `your-repo-name/www` and run the following
+Move to the www directory `your-repo-name/www` and run the following
 
 - Install nodeJS and npm
 ```
@@ -83,7 +83,7 @@ Move to the 'www' directory `your-repo-name/www` and run the following
 ```
 	
 ### Run the front-end  
-- Run this from the 'www' directory
+- Run this from the www directory
 	- If running ubuntu on EC2, a change will need to be made in the Gruntfile. On line 84 change 'localhost' to '0.0.0.0', keeping the quotes
 ```
 	grunt serve	
@@ -109,10 +109,10 @@ Move to the 'www' directory `your-repo-name/www` and run the following
   	username: postgres						*add this line  
   	password:								*add this line  
 ```
-Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom of file) 
-
-**MUST USE SUDO to view contents of this file**
-
+- Modify the `pg_hba.conf` file located at `/etc/postgresql/9.3/main/pg_hba.conf` to look like below
+	- The contents you need to modify are located at/near the bottom of the file
+	- You **MUST** use sudo to view and edit the file contents
+```
 	# Database administrative login by Unix domain socket
 	local   all             postgres                                peer
 
@@ -124,37 +124,42 @@ Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom o
 	host    all             all             127.0.0.1/32            trust
 	# IPv6 local connections:
 	host    all             all             ::1/128                 trust
+```
+- Refresh the file for postgres by using the psql terminal as postgres user  
+```
+	sudo -u postgres psql
+	
+	select pg_reload_conf();
+	\q
+```
 
-Then go into the psql terminal as postgres user  
+- Move to the api directory (your-repo-name/api) and run the following commands to install rake, bundler, rails, and more dependencies
+```
+	sudo apt-get install rake
+	sudo gem install bundler
+	gem install rails 
+	
+	sudo apt-get install libpq-dev
+	bundle install
+```
 
-	% sudo -u postgres psql
+- Create and migrate the database  
+```
+  	rake db:create  
+  	rake db:migrate  
+```
 
-Then type the following command to refresh  
+- You can ensure the database is set up properly by checking `localhost:3000/leaders` or `your-host-name:3000/leaders`
+	- If `[]` is displayed, then it is set up properly
 
-	% select pg_reload_conf();
-	% \q
 
-Now move to the api directory (your-repo-name/api) and run the following commands  
+###Run the api  
+- Run this from the api directory
+	- If running ubuntu on EC2, use  `rails s -b 0.0.0.0 -p 3000` 
+```
+	rails s
+```		
 
-	% sudo apt-get install rake
-	% sudo gem install bundler
-
-**Make sure ruby version is 2.2.2 before install of rails, if not follow the above instructions**  
-
-	% gem install rails 
-	% sudo apt-get install libpq-dev
-	% bundle install
-
-Then create and migrate the database  
-
-  	% rake db:create  
-  	% rake db:migrate  
-
- Run the api  
-
-	% rails s
-		
-		** If running ubuntu on EC2, use  `rails s -b 0.0.0.0 -p 3000` **
 
 [git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 [rvm]: https://rvm.io/integration/gnome-terminal
