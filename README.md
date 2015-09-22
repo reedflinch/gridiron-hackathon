@@ -93,7 +93,9 @@ Add to /api/config/databade.yml
   	username: postgres 						*add this line  
   	password:								*add this line  
 
-Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom of file)  
+Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom of file) 
+
+* MUST USE SUDO to view contents of this file
 
 	# Database administrative login by Unix domain socket
 	local   all             postgres                                peer
