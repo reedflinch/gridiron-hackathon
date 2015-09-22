@@ -47,8 +47,8 @@ Check ruby version
 If anything other than 2.2.2 use  
 
 	% rvm use 2.2.2
-
-If getting rvm is not a funtion error, follow the instructions [here][rvm]
+		
+* If getting rvm is not a funtion error, follow the instructions [here][rvm]
 
 Continue running the following commands
 
@@ -68,7 +68,7 @@ Continue running the following commands
 	% sudo npm install -g grunt-cli
 	% gem install compass
 	
-serve front-end  
+Serve front-end  
 
 	% grunt serve	
 
@@ -81,16 +81,16 @@ serve front-end
 
 Add to /api/config/databade.yml  
 
-  development: &default  
-  adapter: postgresql  
-  database: ads_development  
-  encoding: utf8  
-  host: localhost  
-  min_messages: warning  
-  pool: 2  
-  timeout: 5000  
-  username: postgres 						*add this line  
-  password:									*add this line  
+  	development: &default  
+  	adapter: postgresql  
+  	database: ads_development  
+  	encoding: utf8  
+  	host: localhost  
+  	min_messages: warning  
+  	pool: 2  
+  	timeout: 5000  
+  	username: postgres 						*add this line  
+  	password:								*add this line  
 
 Modify /etc/postgresql/9.3/main/pg_hba.conf file to look like below (at bottom of file)  
 
@@ -124,13 +124,15 @@ Now move to the api directory (your-repo-name/api) and run the following command
 	% bundle install
 
 Then create and migrate the database  
-  	% rake db:create
-  	% rake db:migrate
+
+  	% rake db:create  
+  	% rake db:migrate  
 
  Run the api  
+
 	% rails s
 		
-		-If running ubuntu on EC2, use  `rails s -b 0.0.0.0 -p 3000`
+		** If running ubuntu on EC2, use  `rails s -b 0.0.0.0 -p 3000` **
 
 [git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 [rvm]: https://rvm.io/integration/gnome-terminal
