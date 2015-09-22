@@ -60,7 +60,7 @@ If getting rvm is not a funtion error, follow the instructions [here][rvm]
 	
 serve front-end
 	% grunt serve		
-
+		-If running ubuntu on EC2, a change will need to be made in the Gruntfile. On line 84 change 'localhost' to '0.0.0.0', keeping the quotes
 
 ###Build Database
 Go to the 
@@ -109,7 +109,7 @@ Then create and migrate the database
   	% rake db:create
   	% rake db:migrate
 	% rails s
-
+		-If running ubuntu on EC2, use  `rails s -b 0.0.0.0 -p 3000`
 
 [git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 [rvm]: https://rvm.io/integration/gnome-terminal
