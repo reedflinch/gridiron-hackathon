@@ -147,7 +147,7 @@ Move to the www directory `your-repo-name/www` and run the following
 ```
 	sudo apt-get install rake
 	sudo gem install bundler
-	gem install rails 
+	sudo gem install rails 
 	
 	sudo apt-get install libpq-dev
 	bundle install
