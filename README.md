@@ -146,7 +146,7 @@ Move to the www directory `your-repo-name/www` and run the following
 - Move to the api directory (your-repo-name/api) and run the following commands to install rake, bundler, rails, and more dependencies
 ```
 	sudo apt-get install rake
-	sudo gem install bundler
+	gem install bundler
 	sudo gem install rails 
 	
 	sudo apt-get install libpq-dev
