@@ -64,7 +64,7 @@ Move to the www directory `your-repo-name/www` and run the following
 
 
 - Install and set up bower, grunt, dependencies, compass
-	- If you are having trouble with git when installing dependencies (firewall issue), you can make git replace the protocol for you
+	- Run this command to make git replace the protocol for you, this prevents trouble with git when installing dependencies (firewall issue).
 ```
 	git config --global url."https://".insteadOf git://
 ```
