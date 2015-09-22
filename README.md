@@ -150,6 +150,9 @@ Move to the www directory `your-repo-name/www` and run the following
 	sudo gem install rails 
 	
 	sudo apt-get install libpq-dev
+
+* Make sure ruby version is 2.2.2 (may have switched during install) if not follow the instructions above
+
 	bundle install
 ```
 
