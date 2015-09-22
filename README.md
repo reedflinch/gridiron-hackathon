@@ -123,7 +123,8 @@ Now move to the api directory (your-repo-name/api) and run the following command
 	% sudo apt-get install rake
 	% sudo gem install bundler
 
-**Make sure ruby version is 2.2.2 before install of rails, if not follow the above instructions**
+**Make sure ruby version is 2.2.2 before install of rails, if not follow the above instructions**  
+
 	% gem install rails 
 	% sudo apt-get install libpq-dev
 	% bundle install
