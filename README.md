@@ -29,18 +29,17 @@ You will need [Git][git] to make a duplicate of this repository.
 ## Building the Front End
 Move to the www directory `your-repo-name/www` and run the following
 
-- Install nodeJS and npm
+- Install nodeJS, npm, and get certificate key
 ```
 	sudo apt-get update && sudo apt-get install -y npm nodejs
+	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 ```
 
 - Install rvm 
-	- You may need to switch to GuestWifi to get the key
+	- You need to switch to GuestWifi to get rvm
 	- If you are using a VM, you will need to restart your VM after changing wifi
 ```
-	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 	curl -sSL -k https://get.rvm.io | bash -s stable --rails
-	
 	source /home/$USER/.rvm/scripts/rvm (command outputted from the previous command)
 ```
 	
