@@ -8,9 +8,9 @@
 
 
 #textID{
-	margin-left:75px;
+	/*margin-left:75px;
 	margin-right:75px;
-	padding:5px;
+	padding:5px;*/
 }
 
 p {
@@ -21,4 +21,19 @@ p {
 li {
 	font-size:17px;
 	color:#4B4B4B;
+}
+
+#schedule{
+	border-radius: 15px;
+	background-color:#E4E4E4;
+}
+
+a{
+	font-size:17px;
+}
+
+#hackathonHeading{
+	/*color:#0033FF;  */
+	color:black; 
+	/*text-shadow: 2px 2px black;*/
 }
