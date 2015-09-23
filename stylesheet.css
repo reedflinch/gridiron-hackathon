@@ -8,6 +8,17 @@
 
 
 #textID{
-	margin:50px;
-	padding:50px;
+	margin-left:75px;
+	margin-right:75px;
+	padding:5px;
+}
+
+p {
+	font-size: 17px;
+	color:#4B4B4B;
+}
+
+li {
+	font-size:17px;
+	color:#4B4B4B;
 }
