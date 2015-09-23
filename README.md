@@ -99,6 +99,8 @@ Move to the www directory `your-repo-name/www` and run the following
 	sudo gem install compass
 	grunt serve
 ```
+- The webpage appears at `localhost:9000` or `your-host-name:9000`
+
 
 ### Build Database and API
 ```
