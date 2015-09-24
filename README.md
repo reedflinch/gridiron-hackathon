@@ -70,6 +70,8 @@ Move to the www directory `your-repo-name/www` and run the following
 	- If you are running this locally, you'll need to switch to GuestWifi to get rvm
 	- If you are using a VM, you will need to restart your VM after changing wifi
 ```
+	# You probably don't want rdoc and ri, so let's not...
+	echo 'gem: --no-rdoc --no-ri' >> ~/.gemrc
 	curl -sSL -k https://get.rvm.io | bash -s stable --rails
 	source /home/$USER/.rvm/scripts/rvm (command outputted from the previous command)
 ```
