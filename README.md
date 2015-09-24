@@ -58,19 +58,19 @@ You will need [Git][git] to make a duplicate of this repository.
 
 
 ## Building the Front End
-Move to the www directory `your-repo-name/www` and run the following
 
-- Install nodeJS, npm, and get certificate key
+- Install nodeJS, npm, get certificate key, and get rid of NodeJS linking confusion:
 ```
-	sudo apt-get update && sudo apt-get install -y npm nodejs
+	sudo apt-get install -y npm nodejs
 	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+	sudo ln -s /usr/bin/nodejs /usr/bin/node
 ```
 
 - Install rvm 
 	- If you are running this locally, you'll need to switch to GuestWifi to get rvm
 	- If you are using a VM, you will need to restart your VM after changing wifi
 ```
-	# You probably don't want rdoc and ri, so let's not...
+	# You probably don't need rdoc and ri, so let's not...
 	echo 'gem: --no-rdoc --no-ri' >> ~/.gemrc
 	curl -sSL -k https://get.rvm.io | bash -s stable --rails
 	source /home/$USER/.rvm/scripts/rvm (command outputted from the previous command)
@@ -100,26 +100,24 @@ Move to the www directory `your-repo-name/www` and run the following
 ```
 	git config --global url."https://".insteadOf git://
 ```
-
+Move to the www directory `your-repo-name/www` and run the following:
 ```
-	sudo apt-get install ruby-dev
-	sudo ln -s /usr/bin/nodejs /usr/bin/node
-
-	sudo npm install -g bower
-	sudo npm install -g grunt
+	sudo apt-get install -y ruby-dev
+	sudo npm install -g bower grunt
 
 	bower install
 	bower install grunt-cli
 	
+	# npm install will take 5-10 minutes...go get coffee
 	sudo npm install
 	sudo npm install -g grunt-cli
 	gem install compass
 ```
 
 	
-### Run the front-end  
+#### Run the front-end  
 - Run this from the www directory
-	- If running ubuntu on EC2, a change will need to be made in the Gruntfile. On line 84 change 'localhost' to '0.0.0.0', keeping the quotes
+	- If running ubuntu on EC2, a change will need to be made in Gruntfile.js. On line 84 change 'localhost' to '0.0.0.0', keeping the quotes
 ```
 	grunt serve	
 ```
@@ -131,13 +129,12 @@ Move to the www directory `your-repo-name/www` and run the following
 	sudo gem install compass
 	grunt serve
 ```
-- The webpage appears at `localhost:9000` or `your-host-name:9000`
+- The webpage appears at `localhost:9000` or `your-public-ip:9000`
 
 
-### Build Database and API
+## Building the Database and API
 ```
-	sudo apt-get update -y && \
-  	sudo apt-get install -y postgresql postgresql-contrib
+	sudo apt-get install -y postgresql postgresql-contrib
 ```
 
 - Modify the `database.yml` file located at `your-repo-name/api/config/database.yml` 
