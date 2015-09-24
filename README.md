@@ -1,5 +1,24 @@
-# Labelcraft ( Hackathon edition )
-- Tested on Ubuntu locally and Amazon EC2
+# Labelcraft "Mystery Site" (Hackathon Edition)
+
+## Your Ubuntu Environments
+Each team has four Ubuntu VMs. 
+
+- To access your machine, use the certificate you received to SSH into the machine's public IP.
+- Your DevOps solution may require your machines to talk to one another. Use each machine's private IP when referencing your team's other machines.
+
+```shell
+# You may have to run 
+chmod 0400 HackTeamX.pem 
+# in terminal/GitBash first. You'll only need to do this once.
+ssh -i HackTeamX.pem ubuntu@52.3.255.190
+```
+
+| Team 1 Public IPs      | Team 1 Private IPs       | Team 2 Public IPs      | Team 2 Private IPs       |
+| :--------------------: |:------------------------:| :--------------------: |:------------------------:|
+| 52.3.255.190           | 172.31.92.6      | 54.88.214.150          | 172.31.93.14      |
+| 54.173.67.218          | 172.31.92.7      | 54.88.46.237           | 172.31.93.13      |
+| 54.173.83.29           | 172.31.92.8      | 54.84.133.37           | 172.31.93.12      |
+| 54.152.236.182         | 172.31.92.9      | 54.88.116.150          | 172.31.93.11      |
 
 ## Duplicating Repo  
 You will need [Git][git] to make a duplicate of this repository. 
