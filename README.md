@@ -1,16 +1,20 @@
 # Labelcraft "Mystery Site" (Hackathon Edition)
 
-## Your Ubuntu Environments
-Each team has four Ubuntu VMs. 
+## Requirement: SSH Client
+For those on Windows boxes, try [GitBash](https://git-for-windows.github.io/) as a potential terminal.
+
+## Your Ubuntu Environments / Local VMs
+Each team has four Ubuntu EC2 instances. Alternatively, you're free to work using a local VirtualBox VM running Ubuntu (14.04 on our EC2s). You can get an Ubuntu .iso [here](http://www.ubuntu.com/download) and VirtualBox [here.](https://www.virtualbox.org/wiki/Downloads)
 
 - To access your machine, use the certificate you received to SSH into the machine's public IP.
 - Your DevOps solution may require your machines to talk to one another. Use each machine's private IP when referencing your team's other machines.
 
+### Example EC2 session:
 ```shell
 # You may have to run 
 chmod 0400 HackTeamX.pem 
 # in terminal/GitBash first. You'll only need to do this once.
-ssh -i HackTeamX.pem ubuntu@52.3.255.190
+ssh -i HackTeamX.pem ubuntu@[public_ip]
 ```
 
 | Team 1 Public IPs      | Team 1 Private IPs       | Team 2 Public IPs      | Team 2 Private IPs       |
@@ -63,7 +67,7 @@ Move to the www directory `your-repo-name/www` and run the following
 ```
 
 - Install rvm 
-	- You need to switch to GuestWifi to get rvm
+	- If you are running this locally, you'll need to switch to GuestWifi to get rvm
 	- If you are using a VM, you will need to restart your VM after changing wifi
 ```
 	curl -sSL -k https://get.rvm.io | bash -s stable --rails
