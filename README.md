@@ -45,7 +45,7 @@ You will need [Git][git] to make a duplicate of this repository.
 - Remove our temporary local repository  
 ```	
 	cd ..  
-	rm -rf hackathon
+	rm -rf hackathon.git
 ```
 - Now you can make a clone of your new repo  
 ```
