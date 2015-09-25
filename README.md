@@ -151,7 +151,7 @@ Move to the www directory `your-repo-name/www` and run the following:
   	password:								*add this line  
 ```
 - Modify the `pg_hba.conf` file located at `/etc/postgresql/9.3/main/pg_hba.conf` to look like below
-	- The contents you need to modify are located at/near the bottom of the file
+	- The contents you need to modify are located at/near the bottom of the file (Shift+G in vim...)
 	- You **MUST** use sudo to view and edit the file contents
 ```
 	# Database administrative login by Unix domain socket
@@ -176,11 +176,8 @@ Move to the www directory `your-repo-name/www` and run the following:
 
 - Move to the api directory (your-repo-name/api) and run the following commands to install rake, bundler, rails, and more dependencies
 ```
-	sudo apt-get install rake
-	gem install bundler
-	sudo gem install rails 
-	
-	sudo apt-get install libpq-dev
+	sudo apt-get install -y rake libpq-dev
+	sudo gem install bundler rails
 
 * Make sure ruby version is 2.2.2 (may have switched during install) if not follow the instructions above
 
@@ -189,8 +186,7 @@ Move to the www directory `your-repo-name/www` and run the following:
 
 - Create and migrate the database  
 ```
-  	rake db:create  
-  	rake db:migrate  
+  	rake db:create db:migrate  
 ```
 
 - You can ensure the database is set up properly by checking `localhost:3000/leaders` or `your-host-name:3000/leaders`
