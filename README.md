@@ -61,7 +61,7 @@ You will need [Git][git] to make a duplicate of this repository.
 
 - Install nodeJS, npm, get certificate key, and get rid of NodeJS linking confusion:
 ```
-	sudo apt-get install -y npm nodejs
+	sudo apt-get update && sudo apt-get install -y npm nodejs
 	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 	sudo ln -s /usr/bin/nodejs /usr/bin/node
 ```
