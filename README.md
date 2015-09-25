@@ -1,4 +1,4 @@
-# Labelcraft "Mystery Site" (Hackathon Edition)
+# Labelcraft "Mystery Site" (Hackathon Edition)!
 
 ## Requirement: SSH Client
 For those on Windows boxes, try [GitBash](https://git-for-windows.github.io/) as a potential terminal.
