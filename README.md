@@ -92,7 +92,7 @@ You will need [Git][git] to make a duplicate of this repository.
 ```		
 
 
-- If getting the `rvm is not a funtion error`, follow the instructions [here][rvm]
+- If getting the `rvm is not a function error`, follow the instructions [here][rvm]
 
 
 - Install and set up bower, grunt, dependencies, compass
