@@ -6,7 +6,7 @@ RUN apt-get update -y && \
   mysql-client \
   postgresql-client \
   sqlite3 \
-  -- no-install-recommends && rm -rf /var/lib/apt/lists/*
+  --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
