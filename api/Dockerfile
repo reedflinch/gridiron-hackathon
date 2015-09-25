@@ -1,11 +1,20 @@
-FROM ruby:2.2.2
+FROM ruby:2.2
 
-RUN echo 'gem: --no-rdoc --no-ri' >> ~/.gemrc
-RUN curl -sSL -k https://get.rvm.io | bash -s stable --rails
+RUN apt-get update -y && \
+  apt-get install -y \
+  nodejs \
+  mysql-client \
+  postgresql-client \
+  sqlite3 \
+  -- no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-RUN git config --global url."https://".insteadOf git://
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-RUN sudo apt-get install -y rake libpq-dev
-RUN gem install bundler
-RUN sudo gem install rails
-RUN rails s
+COPY ["Gemfile","/usr/src/app/" ]
+COPY ["Gemfile.lock","/usr/src/app/" ]
+RUN bundle install
+
+COPY . /usr/src/app
+EXPOSE 3000
+CMD ["/bin/bash", "startup.sh" ]
