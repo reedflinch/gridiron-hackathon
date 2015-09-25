@@ -190,12 +190,7 @@ Move to the www directory `your-repo-name/www` and run the following:
   	rake db:create db:migrate  
 ```
 
-- You can ensure the database is set up properly by checking `localhost:3000/leaders` or `your-host-name:3000/leaders`
-	- If `[]` is displayed, then it is set up properly
-
-
-###Run the api  
-- Run this from the api directory
+- Run the api (from api directory)
 	- If running ubuntu on EC2, use  `rails s -b 0.0.0.0 -p 3000` 
 ```
 	rails s
